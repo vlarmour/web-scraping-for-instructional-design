@@ -2,6 +2,15 @@ library(tidyverse)
 library(xml2)
 library(rvest)
 
+#titles only all 22 pages
+sci_course_titles <- lapply(paste0('https://comminfo.rutgers.edu/academics/courses?courses=&program=All&page=', 0:22),
+                            function(url){
+                              url %>% read_html() %>% 
+                                html_nodes(".panel-title a") %>% 
+                                html_text()
+                            })
+
+#title, course number, description all 22 pages
 sci_courses <- lapply(paste0('https://comminfo.rutgers.edu/academics/courses?courses=&program=All&page=', 0:22),
                       function(url){
                         url %>% read_html() %>%
